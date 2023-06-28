@@ -7,7 +7,7 @@ const FormRegister = () => {
       <InputForm htmlFor="text" title="Fullname" placeholder="John Doe" />
       <InputForm
         htmlFor="email"
-        title="email"
+        title="Email"
         placeholder="example@gmail.com"
       />
       <InputForm htmlFor="password" title="Password" placeholder="***" />

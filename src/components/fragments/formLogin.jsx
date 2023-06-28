@@ -6,7 +6,7 @@ const FormLogin = () => {
     <form action="">
       <InputForm
         htmlFor="email"
-        title="email"
+        title="Email"
         placeholder="example@gmail.com"
       />
       <InputForm htmlFor="password" title="Password" placeholder="***" />
