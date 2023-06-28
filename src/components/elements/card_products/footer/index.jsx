@@ -1,9 +1,9 @@
 import Button from "../../button";
 
-const CardFooter = () =>{
+const CardFooter = ({price}) =>{
     return(
         <div className="flex items-center justify-between p-5">
-            <span className="text-xl font-bold text-white">Rp.500.000</span>
+            <span className="text-xl font-bold text-white">Rp.{price}</span>
             <Button classname="bg-blue-600">Add To Cart</Button>
         </div>
     )
