@@ -1,10 +1,8 @@
 const CardProducts = (props) => {
-  const { header, body, footer } = props;
+  const { children } = props;
   return (
     <div className="w-full max-w-sm bg-slate-700 border border-gray-200 rounded-lg shadow">
-      {header}
-      {body}
-      {footer}
+      {children}
     </div>
   );
 };
