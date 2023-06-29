@@ -2,49 +2,85 @@ import CardHeader from "../components/elements/card_products/header";
 import CardFooter from "../components/elements/card_products/footer";
 import CardBody from "../components/elements/card_products/body";
 import CardProducts from "../components/fragments/cardProducts";
-
-const datasets = [
-  {
-    id :1,
-    name : "Sepatu Adidas",
-    image: "/images/img1.jpg",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt esse nemo voluptates numquam cupiditate! Repellendus, aliquid.",
-    price: 700000,
-  },
-  {
-    id :2,
-    name : "Sepatu Nevada",
-    image: "/images/img1.jpg",
-    description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt esse nemo voluptates numquam cupiditate! Repellendus, aliquid.",
-    price: 900000,
-  },
-  {
-    id :3,
-    name : "Sepatu Ventella",
-    image: "/images/img1.jpg",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt esse nemo voluptates numquam cupiditate! Repellendus, aliquid.",
-    price: 300000,
-  },
-];
+import datasets from "../utils/data_products";
+import { useState } from "react";
 
 const ProductsPage = () => {
-  const popUp = (name="Ardin") => {
-    alert("Welcome " + name);
+  const [carts, setCarts] = useState([]);
+  const HandlerCarts = (id) => {
+    const dataset = datasets.find((dataset) => dataset.id == id);
+    if (dataset != undefined) {
+      const cart = carts.find((cart) => cart.id == id);
+      if (cart == undefined) {
+        setCarts((previous) => {
+          return [
+            ...previous,
+            {
+              id,
+              qty: 1,
+            },
+          ];
+        });
+      } else {
+        const newCarts = carts.map(cart => {
+          if (cart.id == id) {
+            cart.qty += 1;
+          }
+          return cart
+        });
+        setCarts(newCarts);
+      }
+    } else {
+      alert("Invalid id");
+    }
   };
+
+  // const popUp = (name="Ardin") => {
+  //   alert("Welcome " + name);
+  // };
+
   return (
-    <div className="flex justify-center p-5 w-1/2">
-      {datasets.map((dataset) => {
-        return (
-          <CardProducts key={dataset.id}>
-            <CardHeader image={dataset.image} />
-            <CardBody name={dataset.name} description={dataset.description} />
-            <CardFooter price={dataset.price} popUp={popUp} />
-          </CardProducts>
-        );
-      })}
+    <div className="flex">
+      <div className="flex  flex-wrap p-5 w-2/3">
+        {datasets.map((dataset) => {
+          return (
+            <CardProducts key={dataset.id}>
+              <CardHeader image={dataset.image} />
+              <CardBody name={dataset.name} description={dataset.description} />
+              <CardFooter
+                price={dataset.price}
+                id={dataset.id}
+                HandlerCarts={HandlerCarts}
+              />
+            </CardProducts>
+          );
+        })}
+      </div>
+      <div className="p-5 w-1/3">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Products</th>
+              <th>Qty</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {carts.map((cart) => {
+              const dataset = datasets.find((data) => data.id == cart.id);
+              return (
+                <tr key={cart.id}>
+                  <th>{dataset.id}</th>
+                  <th>{dataset.name}</th>
+                  <th>{cart.qty}</th>
+                  <th>Rp.{(cart.qty * dataset.price).toLocaleString()}</th>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
