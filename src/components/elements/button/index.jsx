@@ -1,8 +1,7 @@
 const Button = props =>{
-    const {children,classname="bg-black"} = props;
-
+    const {children,classname,popUp} = props;
     return(
-        <button className={`p-1 font-semibold rounded-md ${classname} text-white `}>
+        <button className={`p-1 font-semibold rounded-md ${classname} text-white `} onClick={() => popUp()}>
             {children}
         </button>
     )
