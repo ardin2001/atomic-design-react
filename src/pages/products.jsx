@@ -6,6 +6,7 @@ import CardProducts from "../components/fragments/cardProducts";
 const datasets = [
   {
     id :1,
+    name : "Sepatu Adidas",
     image: "/images/img1.jpg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt esse nemo voluptates numquam cupiditate! Repellendus, aliquid.",
@@ -13,28 +14,34 @@ const datasets = [
   },
   {
     id :2,
+    name : "Sepatu Nevada",
     image: "/images/img1.jpg",
     description:
-      "",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt esse nemo voluptates numquam cupiditate! Repellendus, aliquid.",
     price: 900000,
   },
   {
     id :3,
-    image: "",
+    name : "Sepatu Ventella",
+    image: "/images/img1.jpg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt esse nemo voluptates numquam cupiditate! Repellendus, aliquid.",
     price: 300000,
   },
 ];
+
 const ProductsPage = () => {
+  const popUp = (name="Ardin") => {
+    alert("Welcome " + name);
+  };
   return (
-    <div className="flex justify-center py-5">
+    <div className="flex justify-center p-5 w-1/2">
       {datasets.map((dataset) => {
         return (
           <CardProducts key={dataset.id}>
             <CardHeader image={dataset.image} />
-            <CardBody description={dataset.description} />
-            <CardFooter price={dataset.price} />
+            <CardBody name={dataset.name} description={dataset.description} />
+            <CardFooter price={dataset.price} popUp={popUp} />
           </CardProducts>
         );
       })}
