@@ -3,10 +3,11 @@ import CardFooter from "../components/elements/card_products/footer";
 import CardBody from "../components/elements/card_products/body";
 import CardProducts from "../components/fragments/cardProducts";
 import datasets from "../utils/data_products";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ProductsPage = () => {
   const [carts, setCarts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const HandlerCarts = (id) => {
     const dataset = datasets.find((dataset) => dataset.id == id);
     if (dataset != undefined) {
@@ -22,11 +23,11 @@ const ProductsPage = () => {
           ];
         });
       } else {
-        const newCarts = carts.map(cart => {
+        const newCarts = carts.map((cart) => {
           if (cart.id == id) {
             cart.qty += 1;
           }
-          return cart
+          return cart;
         });
         setCarts(newCarts);
       }
@@ -35,9 +36,20 @@ const ProductsPage = () => {
     }
   };
 
-  // const popUp = (name="Ardin") => {
-  //   alert("Welcome " + name);
-  // };
+  useEffect(() => {
+    setCarts(JSON.parse(localStorage.getItem("carts")) || []);
+  }, []);
+
+  useEffect(() => {
+    if (carts.length != 0) {
+      const totalPrice = carts.reduce((sum, cart) => {
+        const newCart = datasets.find((dataset) => dataset.id == cart.id);
+        return sum + newCart.price;
+      }, 0);
+      setTotalPrice(totalPrice);
+    }
+    localStorage.setItem("carts",JSON.stringify(carts))
+  }, [carts]);
 
   return (
     <div className="flex">
@@ -71,15 +83,16 @@ const ProductsPage = () => {
               const dataset = datasets.find((data) => data.id == cart.id);
               return (
                 <tr key={cart.id}>
-                  <th>{dataset.id}</th>
-                  <th>{dataset.name}</th>
-                  <th>{cart.qty}</th>
-                  <th>Rp.{(cart.qty * dataset.price).toLocaleString()}</th>
+                  <td>{dataset.id}</td>
+                  <td>{dataset.name}</td>
+                  <td>{cart.qty}</td>
+                  <td>Rp.{(cart.qty * dataset.price).toLocaleString()}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+        <p>Total Price : {totalPrice}</p>
       </div>
     </div>
   );
