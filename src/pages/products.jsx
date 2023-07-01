@@ -3,11 +3,13 @@ import CardFooter from "../components/elements/card_products/footer";
 import CardBody from "../components/elements/card_products/body";
 import CardProducts from "../components/fragments/cardProducts";
 import datasets from "../utils/data_products";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 
 const ProductsPage = () => {
   const [carts, setCarts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const useRefTotal = useRef();
+
   const HandlerCarts = (id) => {
     const dataset = datasets.find((dataset) => dataset.id == id);
     if (dataset != undefined) {
@@ -41,12 +43,15 @@ const ProductsPage = () => {
   }, []);
 
   useEffect(() => {
-    if (carts.length != 0) {
+    if (carts.length > 0) {
+      useRefTotal.current.style.display = "block";
       const totalPrice = carts.reduce((sum, cart) => {
         const newCart = datasets.find((dataset) => dataset.id == cart.id);
-        return sum + newCart.price;
+        return sum + newCart.price*cart.qty;
       }, 0);
       setTotalPrice(totalPrice);
+    }else{
+      useRefTotal.current.style.display = "none";
     }
     localStorage.setItem("carts",JSON.stringify(carts))
   }, [carts]);
@@ -92,7 +97,7 @@ const ProductsPage = () => {
             })}
           </tbody>
         </table>
-        <p>Total Price : {totalPrice}</p>
+        <p ref={useRefTotal}>Total Price : {totalPrice}</p>
       </div>
     </div>
   );

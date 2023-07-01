@@ -1,7 +1,8 @@
 import InputForm from "../elements/input";
 import Button from "../elements/button";
+import { forwardRef } from "react";
 
-const FormLogin = () => {
+const FormLogin = forwardRef((props,ref) => {
   const onSubmitHandler = (e) =>{
     e.preventDefault()
     localStorage.setItem("email",e.target.email.value)
@@ -14,6 +15,7 @@ const FormLogin = () => {
         htmlFor="email"
         title="Email"
         placeholder="example@gmail.com"
+        ref={ref}
       />
       <InputForm htmlFor="password" title="Password" placeholder="***" />
       <Button classname="bg-blue-600 w-full" type="submit">
@@ -21,6 +23,6 @@ const FormLogin = () => {
       </Button>
     </form>
   );
-};
+});
 
 export default FormLogin;
