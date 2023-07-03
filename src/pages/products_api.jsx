@@ -6,13 +6,14 @@ import { useState, useEffect, useRef, Fragment } from "react";
 import { getProducts } from "../utils/api";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const ProductApisPage = () => {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [username, setUsername] = useState("");
+  const username = useAuth("");
   const useRefTotal = useRef();
   const navigate = useNavigate();
 
@@ -48,15 +49,6 @@ const ProductApisPage = () => {
     }
   };
 
-  useEffect(() => {
-    const jwt_user = localStorage.getItem("token");
-    if (jwt_user == undefined) {
-      navigate("/login");
-    } else {
-      const user = jwt_decode(jwt_user);
-      setUsername(user.user);
-    }
-  }, []);
 
   useEffect(() => {
     setCarts(JSON.parse(localStorage.getItem("carts")) || []);
