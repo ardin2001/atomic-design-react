@@ -8,6 +8,7 @@ import ErrorPage from './pages/error.jsx'
 import ProductsPage from './pages/products';
 import CounterPage from './pages/counter';
 import ProductApisPage from './pages/products_api';
+import ProfilePage from './pages/profile';
 
 const routers = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const routers = createBrowserRouter([
   {
     path : "/counters",
     element : <CounterPage />
+  },
+  {
+    path : "/profile",
+    element : <ProfilePage />
   },
 ])
 
