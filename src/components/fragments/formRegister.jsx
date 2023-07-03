@@ -1,5 +1,5 @@
 import InputForm from "../elements/input";
-import Button from "../elements/button";
+import { ButtonOnlick } from "../elements/button";
 
 const FormRegister = () => {
   return (
@@ -16,7 +16,7 @@ const FormRegister = () => {
         title="Confirm Password"
         placeholder="***"
       />
-      <Button classname="bg-blue-600 w-full">Login</Button>
+      <ButtonOnlick classname="bg-blue-600 w-full">Register</ButtonOnlick>
     </form>
   );
 };

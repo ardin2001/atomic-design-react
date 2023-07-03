@@ -3,7 +3,6 @@ import AuthLayout from "../components/layouts/authlayouts";
 import FormLogin from "../components/fragments/formLogin";
 
 const CounterPage = () =>{
-    const useRefCounter = useRef();
     const useRefFocus = useRef();
 
     useEffect(() =>{
