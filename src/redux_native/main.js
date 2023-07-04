@@ -1,31 +1,5 @@
-const Reducer = (state = [], action = {}) => {
-  switch (action.type) {
-    case "ADD_TODO":
-      return [...state, action.payload];
-    case "DELETE_TODO":
-      return state.filter((data) => data.id != action.payload.id);
-    default:
-      state;
-  }
-};
-
-const createStore = () => {
-  let state;
-  let listeners = [];
-
-  const getState = () => state;
-
-  const subscribe = (listener) => {
-    listeners.push(listener);
-  };
-
-  const dispatch = (payload) => {
-    state = Reducer(state, payload);
-    listeners.forEach((listener) => listener());
-  };
-
-  return { getState, subscribe, dispatch };
-};
+import reducer from "./reducer.js";
+import createStore from "./createStore.js";
 
 const AddTodoActionCreator = ({ id, text }) => {
   return {
@@ -46,7 +20,7 @@ const deleteTodoActionCreator = ({ id}) => {
     };
   };
 
-const store = createStore();
+const store = createStore(reducer);
 store.subscribe(() => console.log("current state :", store.getState()));
 
 for(let i=1; i<4; i++){
