@@ -51,7 +51,6 @@ const ProductApisPage = () => {
 
 
   useEffect(() => {
-    setCarts(JSON.parse(localStorage.getItem("carts")) || []);
     const productsAPI = async () => {
       try {
         const response = await getProducts();
