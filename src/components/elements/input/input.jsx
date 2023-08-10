@@ -1,14 +1,31 @@
-import { forwardRef } from "react";
+import { useEffect } from "react";
 import useInput from "../../../hooks/useInput";
 
-const Input = forwardRef((props,ref) =>{
-    const {type,placeholder,name,id} = props
-    const [value,setValue] = useInput("");
-    return(
-        <input type={type}
-        className="text-sm border rounded w-full p-2 text-slate-700 placeholder:opacity-50"
-        placeholder={placeholder} name={name} id={id} ref={ref} value={value} onChange={setValue} />
-    )
-})
+const Input = (props) => {
+  const { type, placeholder, name, id, ErrorInputHandler } = props;
+  const [value, setValue] = useInput("");
+  useEffect(() => {
+    if (type == "username") {
+      if (value != "") {
+        if (value.length < 8) {
+          ErrorInputHandler("Username less than 8");
+        } else {
+          ErrorInputHandler("");
+        }
+      }
+    }
+  });
+  return (
+    <input
+      type={type}
+      className="text-sm border rounded w-full p-2 text-slate-700 placeholder:opacity-50"
+      placeholder={placeholder}
+      name={name}
+      id={id}
+      value={value}
+      onChange={setValue}
+    />
+  );
+};
 
-export default Input
+export default Input;
