@@ -1,49 +1,57 @@
 import InputForm from "../elements/input";
 import { Button } from "../elements/button";
-import { forwardRef, useEffect, useState } from "react";
-import { json, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../utils/api";
+import useError from "../../hooks/useError";
 
-const FormLogin = forwardRef((props, ref) => {
+const FormLogin = () => {
   const [error, setError] = useState("");
+  const [errUsername, setErrUsername] = useError("");
+  const [errPassword, setErrPassword] = useError("");
   const navigate = useNavigate();
   const onSubmitHandler = (event) => {
     event.preventDefault();
-
     async function Login(username, password) {
       try {
         let response = await loginUser({ username, password });
-        console.log(response)
-        if(!response.ok){
+        if (!response.ok) {
           response = await response.json();
-          throw new Error(response)
+          throw new Error(response);
         }
 
         response = await response.json();
         localStorage.setItem("token", response.token);
         navigate("/products-api");
       } catch (err) {
-        setError(err.message)
-        console.log(err.message)
+        setError(err.message);
+        console.log(err.message);
       }
     }
     Login(event.target.username.value, event.target.password.value);
   };
+
   return (
     <form onSubmit={onSubmitHandler}>
+      {errUsername!="" ? <p>{errUsername}</p> : false}
       <InputForm
         htmlFor="username"
         title="Username"
         placeholder="John Doe"
-        ref={ref}
+        ErrorInputHandler={setErrUsername}
       />
-      <InputForm htmlFor="password" title="Password" placeholder="***" />
+      <InputForm
+        htmlFor="password"
+        title="Password"
+        placeholder="*"
+        ErrorInputHandler={setErrPassword}
+      />
       <Button classname="bg-blue-600 w-full" type="submit">
         Login
       </Button>
       <p className="font-medium text-red-600 text-center">{error}</p>
     </form>
   );
-});
+};
 
 export default FormLogin;
