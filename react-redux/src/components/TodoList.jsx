@@ -1,24 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import TodoInput from "./TodoInput";
 import TodoItem from "./TodoItem";
-import { AddTodoActionCreator,deleteTodoActionCreator,completeTodoActionCreator } from "../states/todos/action";
+import { asyncReceiveTodos,asyncAddTodo,asyncToggleTodo,asyncDeleteTodo } from "../states/todos/action";
 
 function TodoList() {
   const todos = useSelector((states) => states.todos);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(asyncReceiveTodos());
+  }, [dispatch]);
+
   function onAddTodo(text) {
-    const id = `todo-${+new Date()}`;
-    dispatch(AddTodoActionCreator({ id, text }));
+    dispatch(asyncAddTodo(text));
   }
 
-  function onToggleTodo(id,status) {
-    dispatch(completeTodoActionCreator({id,status}))
+  function onToggleTodo(id) {
+    dispatch(asyncToggleTodo(id))
   }
 
   function onDeleteTodo(id) {
-    dispatch(deleteTodoActionCreator({id}))
+    dispatch(asyncDeleteTodo(id))
   }
 
   return (
