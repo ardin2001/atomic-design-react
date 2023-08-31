@@ -1,35 +1,77 @@
-const AddTodoActionCreator = ({ id, text }) => {
+import mockAPI from "../../data/mockAPI";
+
+function addTodoActionCreator({ id, text }) {
   return {
-    type: "ADD_TODO",
+    type: 'ADD_TODO',
     payload: {
       id,
       text,
-      complete: false,
-    },
+      complete: false
+    }
   };
-};
+}
 
-const deleteTodoActionCreator = ({ id }) => {
+function deleteTodoActionCreator(id) {
   return {
-    type: "DELETE_TODO",
+    type: 'DELETE_TODO',
     payload: {
-      id,
-    },
+      id
+    }
   };
-};
+}
 
-const completeTodoActionCreator = ({ id, status }) => {
+function toggleTodoActionCreator(id) {
   return {
-    type: "COMPLETE_TODO",
+    type: 'TOGGLE_TODO',
     payload: {
-      id,
-      status: status,
-    },
+      id
+    }
   };
-};
+}
+
+function receiveTodosActionCreator(todos) {
+  return {
+    type: 'RECEIVE_TODOS',
+    payload: {
+      todos
+    }
+  };
+}
+
+function asyncReceiveTodos() {
+  return async (dispatch) => {
+    const todos = await mockAPI.getTodos();
+    dispatch(receiveTodosActionCreator(todos));
+  };
+}
+function asyncAddTodo(text) {
+  return async (dispatch) => {
+    const { id } = await mockAPI.addTodo(text);
+    dispatch(addTodoActionCreator({ id, text }));
+  };
+}
+ 
+function asyncDeleteTodo(id) {
+  return async (dispatch) => {
+    await mockAPI.deleteTodo(id);
+    dispatch(deleteTodoActionCreator(id));
+  };
+}
+ 
+function asyncToggleTodo(id) {
+  return async (dispatch) => {
+    await mockAPI.toggleTodo(id);
+    dispatch(toggleTodoActionCreator(id));
+  };
+}
 
 export {
-  AddTodoActionCreator,
+  addTodoActionCreator,
   deleteTodoActionCreator,
-  completeTodoActionCreator,
+  toggleTodoActionCreator,
+  receiveTodosActionCreator,
+  asyncReceiveTodos,
+  asyncAddTodo,
+  asyncDeleteTodo,
+  asyncToggleTodo
 };
