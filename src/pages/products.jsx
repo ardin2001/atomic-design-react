@@ -32,6 +32,7 @@ const ProductsPage = () => {
           return cart;
         });
         setCarts(newCarts);
+        localStorage.setItem("carts",JSON.stringify(carts))
       }
     } else {
       alert("Invalid id");
@@ -53,7 +54,7 @@ const ProductsPage = () => {
     }else{
       useRefTotal.current.style.display = "none";
     }
-    localStorage.setItem("carts",JSON.stringify(carts))
+    // localStorage.setItem("carts",JSON.stringify(carts))
   }, [carts]);
 
   return (

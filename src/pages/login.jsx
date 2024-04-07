@@ -3,7 +3,7 @@ import FormLogin from "../components/fragments/formLogin";
 
 const LoginPage = () =>{
     return(
-        <AuthLayout title="Login" page="login">
+        <AuthLayout title="Login">
             <FormLogin />
         </AuthLayout>
     )

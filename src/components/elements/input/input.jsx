@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import useInput from "../../../hooks/useInput";
+import { forwardRef } from "react";
 
-const Input = (props) => {
+const Input = forwardRef((props,ref) => {
   const { type, placeholder, name, id, ErrorInputHandler } = props;
   const [value, setValue] = useInput("");
   useEffect(() => {
@@ -12,6 +13,8 @@ const Input = (props) => {
         } else {
           ErrorInputHandler("");
         }
+      }else{
+        ErrorInputHandler("");
       }
     }
   });
@@ -24,8 +27,9 @@ const Input = (props) => {
       id={id}
       value={value}
       onChange={setValue}
+      ref={ref}
     />
   );
-};
+})
 
 export default Input;

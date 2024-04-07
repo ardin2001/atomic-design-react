@@ -14,7 +14,7 @@ const useAuth = (value) => {
       setUsername(user.user);
     }
   }, []);
-
+  
   return username;
 };
 

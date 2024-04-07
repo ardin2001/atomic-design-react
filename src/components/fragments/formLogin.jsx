@@ -1,6 +1,6 @@
 import InputForm from "../elements/input";
 import { Button } from "../elements/button";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../utils/api";
 import useError from "../../hooks/useError";
@@ -9,7 +9,12 @@ const FormLogin = () => {
   const [error, setError] = useState("");
   const [errUsername, setErrUsername] = useError("");
   const [errPassword, setErrPassword] = useError("");
+  const focusRef = useRef('');
   const navigate = useNavigate();
+
+  useEffect(() =>{
+    focusRef.current.focus();
+  },[])
   const onSubmitHandler = (event) => {
     event.preventDefault();
     async function Login(username, password) {
@@ -28,6 +33,7 @@ const FormLogin = () => {
         console.log(err.message);
       }
     }
+    
     Login(event.target.username.value, event.target.password.value);
   };
 
@@ -39,6 +45,7 @@ const FormLogin = () => {
         title="Username"
         placeholder="John Doe"
         ErrorInputHandler={setErrUsername}
+        ref={focusRef}
       />
       <InputForm
         htmlFor="password"

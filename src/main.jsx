@@ -6,15 +6,13 @@ import LoginPage from './pages/login.jsx'
 import RegisterPage from './pages/register.jsx'
 import ErrorPage from './pages/error.jsx'
 import ProductsPage from './pages/products';
-import CounterPage from './pages/counter';
 import ProductApisPage from './pages/products_api';
-import ProfilePage from './pages/profile';
 
 const routers = createBrowserRouter([
   {
     path : "/",
     element : <div>Hello World!</div>,
-    errorElement : <ErrorPage />
+    errorElement : <ErrorPage/>
   },
   {
     path : "/login",
@@ -31,14 +29,6 @@ const routers = createBrowserRouter([
   {
     path : "/products-api",
     element : <ProductApisPage />
-  },
-  {
-    path : "/counters",
-    element : <CounterPage />
-  },
-  {
-    path : "/profile",
-    element : <ProfilePage />
   },
 ])
 

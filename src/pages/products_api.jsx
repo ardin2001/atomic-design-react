@@ -4,8 +4,7 @@ import CardBody from "../components/elements/card_products/body";
 import CardProducts from "../components/fragments/cardProducts";
 import { useState, useEffect, useRef, Fragment } from "react";
 import { getProducts } from "../utils/api";
-import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const ProductApisPage = () => {
@@ -62,20 +61,21 @@ const ProductApisPage = () => {
       }
     };
     productsAPI();
+    setCarts(JSON.parse(localStorage.getItem('carts')) || [])
   }, []);
 
   useEffect(() => {
-    if (carts.length > 0) {
+    if (carts.length > 0 && loading == false) {
       useRefTotal.current.style.display = "block";
       const totalPrice = carts.reduce((sum, cart) => {
         const newCart = products.find((product) => product.id == cart.id);
         return sum + newCart.price * cart.qty;
       }, 0);
       setTotalPrice(totalPrice);
+      localStorage.setItem("carts", JSON.stringify(carts));
     } else if (carts.length <= 0 && loading == false) {
       useRefTotal.current.style.display = "none";
     }
-    localStorage.setItem("carts", JSON.stringify(carts));
   }, [carts, loading]);
 
   return (
