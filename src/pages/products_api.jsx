@@ -7,7 +7,7 @@ import { getProducts } from "../utils/api";
 import { json, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-const ProductApisPage = () => {
+const ProductApiPage = () => {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -94,7 +94,7 @@ const ProductApisPage = () => {
             </button>
           </div>
           <div className="flex">
-            <div className="flex  flex-wrap p-5 w-2/3">
+            <div className="flex gap-3 flex-wrap p-5 w-11/12">
               {products.map((product) => {
                 return (
                   <CardProducts key={product.id}>
@@ -149,4 +149,4 @@ const ProductApisPage = () => {
   );
 };
 
-export default ProductApisPage;
+export default ProductApiPage;
