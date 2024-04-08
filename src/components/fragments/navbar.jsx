@@ -10,7 +10,6 @@ const Navbar = () => {
   const amount = useSelector(data => {
     return data.carts.reduce((accumulate, val) => accumulate+val.qty,0)
   })
-  console.log('amount :',amount)
 
   const HandlerLogout = () => {
     localStorage.removeItem("token");

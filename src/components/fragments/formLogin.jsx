@@ -46,7 +46,7 @@ const FormLogin = () => {
 
   return (
     <form onSubmit={onSubmitHandler}>
-      <div className={`${theme ? 'bg-red-500' :'bg-green-500'} text-white fixed p-3 top-10 left-3/4`} onClick={HandlerTheme}>
+      <div className={`${theme ? 'bg-red-500' :'bg-green-500'} text-white fixed p-3 top-10 left-3/4 cursor-pointer`} onClick={HandlerTheme}>
         <p>{theme ? 'light' : 'dark'}</p>
       </div>
       {errUsername!="" ? <p>{errUsername}</p> : false}

@@ -10,6 +10,8 @@ import ProductApiPage from "./pages/products_api";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import ProductApiRTKPage from "./pages/products_api_rtk.jsx";
+import ProductApiRTKUseReducerPage from "./pages/products_api_rtk_useReducer.jsx";
+import { TotalpriceProvider } from "./context/CreateContext.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -37,10 +39,16 @@ const routers = createBrowserRouter([
     path: "/products-api-rtk",
     element: <ProductApiRTKPage />,
   },
+  {
+    path: "/products-api-rtk-use-reducer",
+    element: <ProductApiRTKUseReducerPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <RouterProvider router={routers} />
+    <TotalpriceProvider>
+      <RouterProvider router={routers} />
+    </TotalpriceProvider>
   </Provider>
 );
