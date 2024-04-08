@@ -1,9 +1,10 @@
 import InputForm from "../elements/input";
 import { Button } from "../elements/button";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../utils/api";
 import useError from "../../hooks/useError";
+import { ContextTheme } from "../../context/CreateContext";
 
 const FormLogin = () => {
   const [error, setError] = useState("");
@@ -11,10 +12,16 @@ const FormLogin = () => {
   const [errPassword, setErrPassword] = useError("");
   const focusRef = useRef('');
   const navigate = useNavigate();
+  const {theme,setTheme} = useContext(ContextTheme)
 
   useEffect(() =>{
     focusRef.current.focus();
   },[])
+
+  const HandlerTheme = () =>{
+    setTheme(prev => !prev)
+  }
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
     async function Login(username, password) {
@@ -39,6 +46,9 @@ const FormLogin = () => {
 
   return (
     <form onSubmit={onSubmitHandler}>
+      <div className={`${theme ? 'bg-red-500' :'bg-green-500'} text-white fixed p-3 top-10 left-3/4`} onClick={HandlerTheme}>
+        <p>{theme ? 'light' : 'dark'}</p>
+      </div>
       {errUsername!="" ? <p>{errUsername}</p> : false}
       <InputForm
         htmlFor="username"
