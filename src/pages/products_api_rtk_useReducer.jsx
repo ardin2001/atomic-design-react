@@ -9,30 +9,29 @@ import { useDispatch } from "react-redux";
 import cartSlice from "../redux/cartSlice";
 import Navbar from "../components/fragments/navbar";
 import useAuth from "../hooks/useAuth";
+import { useSelector } from "react-redux";
+import productSlice from "../redux/productSlice";
 
-
+const ThunkFunctionProduct = (setLoading) => {
+  return async (dispatch) => {
+    const response = await getProducts();
+    const products = await response.json();
+    dispatch(productSlice.actions.receiveProduct(products));
+    setLoading(false);
+  };
+};
 const ProductApiRTKUseReducerPage = () => {
-  useAuth('')
+  useAuth("");
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+  const products = useSelector((data) => data.products);
 
   const HandlerCarts = (id) => {
     dispatch(cartSlice.actions.addCarts({ id }));
   };
 
   useEffect(() => {
-    const productsAPI = async () => {
-      try {
-        const response = await getProducts();
-        const products = await response.json();
-        setProducts(products);
-        setLoading(false);
-      } catch {
-        console.log("error request to api");
-      }
-    };
-    productsAPI();
+    dispatch(ThunkFunctionProduct(setLoading));
   }, []);
 
   return (

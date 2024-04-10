@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import cartSlice from './cartSlice.js'
 import { todoDeletionCheck, thunk } from './middleware/middleware.js'
+import productSlice from './productSlice.js'
 const store = configureStore({
     reducer:{
         carts : cartSlice.reducer,
+        products:productSlice.reducer
     },
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(),
+    getDefaultMiddleware().concat(todoDeletionCheck, thunk),
 })
 console.log("initial state :", store.getState())
 
