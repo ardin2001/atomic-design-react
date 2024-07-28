@@ -12,6 +12,7 @@ import store from "./redux/store.js";
 import ProductApiRTKPage from "./pages/products_api_rtk.jsx";
 import ProductApiRTKUseReducerPage from "./pages/products_api_rtk_useReducer.jsx";
 import { TotalpriceProvider } from "./context/CreateContext.jsx";
+import Coba from "./pages/coba.jsx";
 
 const routers = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const routers = createBrowserRouter([
   {
     path: "/products-api-rtk-use-reducer",
     element: <ProductApiRTKUseReducerPage />,
+  },
+  {
+    path: "/coba",
+    element: <Coba />,
   },
 ]);
 

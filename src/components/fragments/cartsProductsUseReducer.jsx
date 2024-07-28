@@ -16,7 +16,7 @@ const CartsProductsUseReducer = (props) => {
   const dispatchUseReducer = useContext(TotalPriceDispatchContext);
 
   useEffect(() => {
-    if (carts.length > 0 && loading == false) {
+    if (carts.length > 0) {
       useRefTotal.current.style.display = "block";
       const totalPrice = carts.reduce((sum, cart) => {
         const newCart = products.find((product) => product.id == cart.id);
@@ -29,10 +29,10 @@ const CartsProductsUseReducer = (props) => {
         },
       });
       localStorage.setItem("carts", JSON.stringify(carts));
-    } else if (carts.length <= 0 && loading == false) {
+    } else if (carts.length <= 0) {
       useRefTotal.current.style.display = "none";
     }
-  }, [carts, loading]);
+  }, [carts, ]);
 
   const deleteCarts = (id) => {
     dispatch(cartSlice.actions.deleteCarts({ id }));
