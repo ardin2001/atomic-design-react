@@ -18,10 +18,16 @@
     <script>
       const items = document.querySelectorAll(".item");
 
-      const callback = function (entries) {
-        entries.forEach((entry) => {
+      const footer = document.querySelector(".footer");
+
+      const callback = function (entries, innerObserver) {
+        entries.forEach((entry, index) => {
+          console.log(entry);
           if (entry.isIntersecting) {
+            console.log("visible :", index);
             entry.target.classList.add("visible");
+            innerObserver.unobserve(entry.target);
+            // innerObserver.unobserve(footer);
           }
         });
       };
@@ -33,8 +39,6 @@
       items.forEach((item) => {
         observer.observe(item);
       });
-
-      const footer = document.querySelector(".footer");
       observer.observe(footer);
     </script>
   </body>

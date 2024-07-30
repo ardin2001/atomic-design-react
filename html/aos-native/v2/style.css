@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    height: 254vh; /* Membuat halaman lebih panjang untuk scrolling */
+    height: 300vh; /* Membuat halaman lebih panjang untuk scrolling */
     background-color: #f4f4f9;
     display: flex;
     align-items: center;
@@ -37,6 +37,12 @@ body {
     text-align: center;
     font-size: 24px;
     border-radius: 8px;
+}
+.footer.visible {
+    opacity: 1;
+    transform: scale(1);
+    background-color: #6c63ff;
+    color: #fff;
 }
 .item.visible {
     opacity: 1;
